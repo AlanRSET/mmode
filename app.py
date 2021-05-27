@@ -18,13 +18,6 @@ hf = url.split('/')[-1]
 
 urllib.request.urlretrieve(url, hf)
 
-@retry.retry((urllib.error.HTTPError, ConnectionResetError))
-def download_with_progress(url, filepath):
-    DownloadProgressBar = create_download_progress_bar()
-    with DownloadProgressBar(
-        unit="B", unit_scale=True, miniters=1, desc=url.split("/")[-1]
-    ) as t:
-        urllib.request.urlretrieve(url, filepath, reporthook=t.update_to)
 
         
 uploaded_file = st.file_uploader("Choose an Mmode image ...", type=['png','jpeg','jpg','dcm'])
