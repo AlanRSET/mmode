@@ -11,25 +11,12 @@ st.text("Upload a Image for image classification")
 
 from img_classification import teachable_machine_classification
 
-cloud_model_location = "https://drive.google.com/file/d/1o9_Y96ZvfBnPUT5p-wPvdJ_8kq-Gq-wK/view?usp=sharing"
+import urllib.request
 
-@st.cache
-def load_model():
+url = 'https://github.com/AlanRSET/mmode/releases/download/vgg1/VGG16Mmodegood.h5'
+hf = url.split('/')[-1]
 
-    save_dest = Path('model')
-    save_dest.mkdir(exist_ok=True)
-    
-    f_checkpoint = Path("model/VGG16Mmodegood.h5")
-
-    if not f_checkpoint.exists():
-        with st.spinner("Downloading model... this may take awhile! \n Don't stop it!"):
-            from GD_download import download_file_from_google_drive
-            download_file_from_google_drive(cloud_model_location, f_checkpoint)
-    
-    model = torch.load(f_checkpoint, map_location=device)
-    model.eval()
-    return model
-
+urllib.request.urlretrieve(url, hf)
 
 uploaded_file = st.file_uploader("Choose an Mmode image ...", type=['png','jpeg','jpg','dcm'])
 if uploaded_file is not None:
