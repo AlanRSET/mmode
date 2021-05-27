@@ -24,7 +24,7 @@ if uploaded_file is not None:
         st.image(image, caption='Uploaded Image.', use_column_width=True)
         st.write("")
         st.write("Classifying...")
-        hf=load_model()
+        #hf=load_model()
         #hf = h5py.File('F:/streamlit-trial/VGG16Mmodegood.h5', 'r')
         label = teachable_machine_classification(image, hf)
         if label == 0:
