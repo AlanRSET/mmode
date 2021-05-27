@@ -18,12 +18,23 @@ hf = url.split('/')[-1]
 
 urllib.request.urlretrieve(url, hf)
 
+@retry.retry((urllib.error.HTTPError, ConnectionResetError))
+def download_with_progress(url, filepath):
+    DownloadProgressBar = create_download_progress_bar()
+    with DownloadProgressBar(
+        unit="B", unit_scale=True, miniters=1, desc=url.split("/")[-1]
+    ) as t:
+        urllib.request.urlretrieve(url, filepath, reporthook=t.update_to)
+
+        
 uploaded_file = st.file_uploader("Choose an Mmode image ...", type=['png','jpeg','jpg','dcm'])
 if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image.', use_column_width=True)
         st.write("")
         st.write("Classifying...")
+        
+        
         #hf=load_model()
         #hf = h5py.File('F:/streamlit-trial/VGG16Mmodegood.h5', 'r')
         label = teachable_machine_classification(image, hf)
