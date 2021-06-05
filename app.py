@@ -5,7 +5,7 @@ from PIL import Image, ImageOps
 import numpy as np
 import h5py
 
-st.title("M mode image classification - VGG16 Model")
+st.title("M mode image classification - VGG16")
 st.header("")
 st.text("Upload a Image for image classification")
 
