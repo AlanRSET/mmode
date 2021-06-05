@@ -20,7 +20,7 @@ urllib.request.urlretrieve(url, hf)
 
 
         
-uploaded_file = st.file_uploader("Choose an Mmode image ...", type=['png','jpeg','jpg','dcm'])
+uploaded_file = st.file_uploader("Choose an Mmode image ...", type=['png','jpeg','jpg'])
 if uploaded_file is not None:
         image = Image.open(uploaded_file)
         st.image(image, caption='Uploaded Image.', use_column_width=True)
